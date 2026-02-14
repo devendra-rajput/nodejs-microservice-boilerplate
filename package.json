@@ -1,0 +1,34 @@
+{
+  "name": "nodejs-microservice-boilerplate",
+  "version": "1.0.0",
+  "description": "A production-ready boilerplate for building scalable microservices applications using Node.js, gRPC, and Docker.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@eslint/compat": "^1.2.5",
+    "@eslint/eslintrc": "^3.2.0",
+    "@eslint/js": "^9.18.0",
+    "eslint": "^9.39.2",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-security": "^3.0.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7"
+  },
+  "lint-staged": {
+    "services/**/*.{js}": "eslint --fix"
+  },
+  "overrides": {
+    "eslint-config-airbnb-base": {
+      "eslint": "^9.0.0"
+    }
+  }
+}

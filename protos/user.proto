@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package user;
+
+service UserService {
+  rpc GetProfile (GetProfileRequest) returns (GetProfileResponse);
+  rpc ValidateUser (ValidateUserRequest) returns (ValidateUserResponse);
+}
+
+message GetProfileRequest {
+  string id = 1;
+}
+
+message GetProfileResponse {
+  string id = 1;
+  string email = 2;
+  string name = 3;
+}
+
+message ValidateUserRequest {
+  string id = 1;
+}
+
+message ValidateUserResponse {
+  string id = 1;
+  string email = 2;
+  string role = 3;
+  string status = 4;
+  string auth_token = 5;
+  string password = 6;
+}

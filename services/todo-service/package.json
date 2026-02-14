@@ -1,0 +1,22 @@
+{
+    "name": "todo-service",
+    "version": "1.0.0",
+    "description": "This README would normally document whatever steps are necessary to get your application up and running.",
+    "main": "src/index.js",
+    "scripts": {
+        "start": "node src/index.js",
+        "dev": "nodemon src/index.js"
+    },
+    "keywords": [],
+    "author": {
+        "name": "Devendra Kumar",
+        "url": "https://github.com/devendra-rajput"
+    },
+    "license": "ISC",
+    "dependencies": {
+        "express": "^5.2.1"
+    },
+    "devDependencies": {
+        "cross-env": "^10.1.0"
+    }
+}

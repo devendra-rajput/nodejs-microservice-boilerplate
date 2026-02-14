@@ -1,0 +1,91 @@
+services:
+
+  # -----------------------
+  # Databases
+  # -----------------------
+
+  mysql-db:
+    image: mysql:8
+    container_name: mysql-db
+    env_file:
+      - ./services/.env.production
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  # todo-db:
+  #   image: mongo:latest
+  #   volumes:
+  #     - mongo_data:/data/db
+
+  redis:
+    image: redis:alpine
+    container_name: redis
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_EXPIRATION=604800 # A week expiry
+    ports:
+      - "6380:6379"
+    volumes:
+      - redis_data:/data
+
+  # -----------------------
+  # Services
+  # -----------------------
+
+  user-service:
+    container_name: user-service
+    build:
+      context: .
+      dockerfile: ./services/user-service/Dockerfile
+    depends_on:
+      - mysql-db
+      - redis
+    env_file:
+      - ./services/.env.production
+    restart: on-failure
+    expose:
+      - "50051" # gRPC internal only
+    # ports:
+    #   - "5001:50051" # Map host 5001 to container 50051 for direct access. 50051 will be use by gRPC server internally.
+
+    # todo-service:
+    #   build:
+    #     context: .
+    #     dockerfile: ./services/todo-service/Dockerfile
+    #   depends_on:
+    #     - todo-db
+    #   environment:
+    #     - MONGO_URI=mongodb://todo-db:27017/todo_db
+    #     - PORT=50052
+    #   deploy:
+    #     mode: replicated
+    #     replicas: 2
+    #     restart_policy:
+    #       condition: on-failure
+
+    # -----------------------
+    # API Gateway
+    # -----------------------
+
+  gateway:
+    container_name: gateway
+    build:
+      context: .
+      dockerfile: ./services/gateway/Dockerfile
+    ports:
+      - "8000:8000" # Only public port
+    depends_on:
+      - user-service
+      # - todo-service
+    env_file:
+      - ./services/.env.production
+    environment:
+      - USER_SERVICE_URL=user-service:50051
+      # - TODO_SERVICE_URL=todo-service:50052
+      - PORT=8000
+    restart: on-failure
+
+volumes:
+  mysql_data: # mongo_data:
+  redis_data:
