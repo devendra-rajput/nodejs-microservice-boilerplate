@@ -1,0 +1,140 @@
+services:
+
+  # -----------------------
+  # Databases
+  # -----------------------
+
+  mysql-db:
+    container_name: mysql-db
+    image: mysql:8
+    env_file:
+      - ./services/.env.development
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./mysql_data_persistent:/var/lib/mysql
+
+  redis:
+    container_name: redis
+    image: redis:alpine
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_EXPIRATION=604800 # A week expiry
+    ports:
+      - "6380:6379"
+    volumes:
+      - redis_data:/data
+
+  # -----------------------
+  # Services
+  # -----------------------
+
+  user-service:
+    image: user-service
+    build:
+      context: .
+      dockerfile: ./services/user-service/Dockerfile
+    deploy:
+      mode: replicated
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+    depends_on:
+      - mysql-db
+      - redis
+      - gateway
+    env_file:
+      - ./services/.env.development
+    environment:
+      - PORT=50051
+      - GRPC_PORT=50053
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    restart: on-failure
+    expose:
+      - "50051" # HTTP
+      - "50053" # gRPC
+
+    volumes:
+      - ./services/user-service/uploads:/usr/src/app/uploads
+
+    develop:
+      watch:
+        - path: ./services/user-service
+          action: sync
+          target: /usr/src/app # This must match the WORKDIR in your Dockerfile
+          ignore:
+            - node_modules/
+            - uploads/
+        - path: ./services/user-service/package.json
+          action: rebuild # Rebuild image if you add new dependencies
+
+  todo-service:
+    build:
+      context: .
+      dockerfile: ./services/todo-service/Dockerfile
+    # depends_on:
+    #   - todo-db
+    environment:
+      - MONGO_URI=mongodb://todo-db:27017/todo_db
+      - PORT=50052
+    deploy:
+      mode: replicated
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+
+  # -----------------------
+  # API Gateway
+  # -----------------------
+
+  gateway:
+    image: gateway
+    build:
+      context: .
+      dockerfile: ./services/gateway/Dockerfile
+    deploy:
+      mode: replicated
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+    # ports:
+    #   - "8000:8000" # Only public port - Now handled by Nginx
+    env_file:
+      - ./services/.env.development
+    environment:
+      - USER_SERVICE_URL=user-service:50051
+      - USER_SERVICE_GRPC_URL=user-service:50053
+      - TODO_SERVICE_URL=todo-service:50052
+      # - TODO_SERVICE_GRPC_URL=todo-service:50054
+      - PORT=8000
+    restart: on-failure
+
+    develop:
+      watch:
+        - path: ./services/gateway
+          action: sync
+          target: /usr/src/app # This must match the WORKDIR in your Dockerfile
+          ignore:
+            - node_modules/
+        - path: ./services/gateway/package.json
+          action: rebuild # Rebuild image if you add new dependencies
+
+  # -----------------------
+  # Server
+  # -----------------------
+
+  nginx:
+    container_name: nginx
+    image: nginx:alpine
+    ports:
+      - "8080:80"
+      - "8443:443"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/certs:/etc/nginx/certs
+    restart: on-failure
+
+volumes:
+  redis_data:

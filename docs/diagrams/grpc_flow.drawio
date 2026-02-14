@@ -1,0 +1,288 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36" version="29.3.0">
+  <diagram id="grpc-flow-diagram" name="gRPC Implementation Flow">
+    <mxGraphModel dx="2084" dy="1164" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-98" parent="1" style="swimlane;whiteSpace=wrap;html=1;startSize=23;fillColor=#e6d0de;strokeColor=#996185;gradientColor=#d5739d;" value="API Gateway Service" vertex="1">
+          <mxGeometry height="500" width="280" x="90" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-99" parent="ZmdDTeSiSpoZHxxOunR0-98" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;gradientColor=#7ea6e0;" value="HTTP Request&#xa;(JSON)" vertex="1">
+          <mxGeometry height="50" width="120" x="60" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-100" parent="ZmdDTeSiSpoZHxxOunR0-98" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;gradientColor=#ffd966;" value="gRPC Client Loader&#xa;(@grpc/proto-loader)" vertex="1">
+          <mxGeometry height="60" width="160" x="40" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-101" parent="ZmdDTeSiSpoZHxxOunR0-98" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;gradientColor=#ea6b66;" value="Client Stub&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;UserService.GetUser()&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;div&gt;ToDoService.GetCount()&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="170" width="160" x="40" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-102" edge="1" parent="ZmdDTeSiSpoZHxxOunR0-98" source="ZmdDTeSiSpoZHxxOunR0-99" style="endArrow=classic;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="ZmdDTeSiSpoZHxxOunR0-100" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-103" edge="1" parent="ZmdDTeSiSpoZHxxOunR0-98" source="ZmdDTeSiSpoZHxxOunR0-100" style="endArrow=classic;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="ZmdDTeSiSpoZHxxOunR0-101" value="Load Proto">
+          <mxGeometry height="50" relative="1" width="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-104" edge="1" parent="ZmdDTeSiSpoZHxxOunR0-98" style="endArrow=classic;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;fillColor=#1ba1e2;strokeColor=#006EAF;strokeWidth=3;entryX=0;entryY=0;entryDx=0;entryDy=0;" target="ZmdDTeSiSpoZHxxOunR0-127" value="&lt;font style=&quot;font-size: 12px;&quot;&gt;HTTP/2 Connection&amp;nbsp;&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;(binary transport)&lt;/font&gt;&lt;/div&gt;">
+          <mxGeometry height="50" relative="1" width="50" x="-0.6964" as="geometry">
+            <mxPoint x="-1" as="offset" />
+            <Array as="points">
+              <mxPoint x="330" y="430" />
+            </Array>
+            <mxPoint x="200" y="443" as="sourcePoint" />
+            <mxPoint x="670" y="120" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-105" edge="1" parent="1" source="ZmdDTeSiSpoZHxxOunR0-106" style="rounded=1;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;dashed=1;strokeColor=#6F0000;curved=0;endArrow=none;endFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;fillColor=#a20025;" target="ZmdDTeSiSpoZHxxOunR0-124">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+            <mxPoint x="480" y="570" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-148" connectable="0" parent="ZmdDTeSiSpoZHxxOunR0-105" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Stub" vertex="1">
+          <mxGeometry relative="1" x="-0.6371" as="geometry">
+            <mxPoint x="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-106" parent="1" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#f5f5f5;strokeColor=#666666;gradientColor=#b3b3b3;" value="user.proto&#xa;(Shared Definition)" vertex="1">
+          <mxGeometry height="80" width="130" x="410" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-107" edge="1" parent="1" source="ZmdDTeSiSpoZHxxOunR0-100" style="endArrow=none;dashed=1;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fillColor=#a20025;strokeColor=#6F0000;" target="ZmdDTeSiSpoZHxxOunR0-106" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-146" connectable="0" parent="ZmdDTeSiSpoZHxxOunR0-107" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Stub" vertex="1">
+          <mxGeometry relative="1" x="0.2924" y="3" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-108" parent="1" style="swimlane;whiteSpace=wrap;html=1;startSize=23;fillColor=#d5e8d4;strokeColor=#82b366;gradientColor=#97d077;" value="User Service" vertex="1">
+          <mxGeometry height="490" width="450" x="840" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-109" parent="ZmdDTeSiSpoZHxxOunR0-108" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;gradientColor=#ffd966;" value="gRPC Server&#xa;(0.0.0.0:50053)" vertex="1">
+          <mxGeometry height="60" width="160" x="20" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-110" parent="ZmdDTeSiSpoZHxxOunR0-108" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;gradientColor=#ea6b66;" value="Service Implementation&#xa;(Controller Logic)" vertex="1">
+          <mxGeometry height="50" width="160" x="20" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-111" parent="ZmdDTeSiSpoZHxxOunR0-108" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#dae8fc;strokeColor=#6c8ebf;gradientColor=#7ea6e0;" value="Database&#xa;(MySQL)" vertex="1">
+          <mxGeometry height="90" width="80" x="60" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-112" edge="1" parent="ZmdDTeSiSpoZHxxOunR0-108" source="ZmdDTeSiSpoZHxxOunR0-109" style="endArrow=classic;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="ZmdDTeSiSpoZHxxOunR0-110" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-113" edge="1" parent="ZmdDTeSiSpoZHxxOunR0-108" source="ZmdDTeSiSpoZHxxOunR0-110" style="endArrow=classic;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="ZmdDTeSiSpoZHxxOunR0-111" value="Query">
+          <mxGeometry height="50" relative="1" width="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-114" parent="ZmdDTeSiSpoZHxxOunR0-108" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;gradientColor=#ffd966;" value="gRPC Client Loader&#xa;(@grpc/proto-loader)" vertex="1">
+          <mxGeometry height="60" width="160" x="270" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-115" parent="ZmdDTeSiSpoZHxxOunR0-108" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;gradientColor=#ea6b66;" value="Client Stub&lt;br&gt;ToDoService.GetCount()" vertex="1">
+          <mxGeometry height="50" width="160" x="270" y="215" as="geometry" />
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-116" edge="1" parent="ZmdDTeSiSpoZHxxOunR0-108" source="ZmdDTeSiSpoZHxxOunR0-114" style="endArrow=classic;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="ZmdDTeSiSpoZHxxOunR0-115" value="Load Proto">
+          <mxGeometry height="50" relative="1" width="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-117" edge="1" parent="1" source="ZmdDTeSiSpoZHxxOunR0-106" style="endArrow=none;dashed=1;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fillColor=#008a00;strokeColor=#005700;" target="ZmdDTeSiSpoZHxxOunR0-109" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-152" connectable="0" parent="ZmdDTeSiSpoZHxxOunR0-117" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Skeleton" vertex="1">
+          <mxGeometry relative="1" x="0.1976" y="-1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-118" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" value="gRPC Channel&lt;div&gt;(TCP)&lt;/div&gt;" vertex="1">
+          <mxGeometry height="30" width="120" x="390" y="540" as="geometry" />
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-119" edge="1" parent="1" source="ZmdDTeSiSpoZHxxOunR0-101" style="endArrow=classic;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;fillColor=#1ba1e2;strokeColor=#006EAF;strokeWidth=3;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="ZmdDTeSiSpoZHxxOunR0-109" value="&lt;font style=&quot;font-size: 12px;&quot;&gt;HTTP/2 Connection&amp;nbsp;&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;(binary transport)&lt;/font&gt;&lt;/div&gt;">
+          <mxGeometry height="50" relative="1" width="50" x="-0.1512" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="430" y="490" />
+            </Array>
+            <mxPoint x="370" y="1000" as="sourcePoint" />
+            <mxPoint x="760" y="725" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-120" edge="1" parent="1" source="ZmdDTeSiSpoZHxxOunR0-109" style="endArrow=classic;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.25;entryDx=0;entryDy=0;fillColor=#1ba1e2;strokeColor=#006EAF;strokeWidth=3;dashed=1;" target="ZmdDTeSiSpoZHxxOunR0-101" value="Serialized&lt;div&gt;Response&lt;/div&gt;">
+          <mxGeometry height="50" relative="1" width="50" x="0.0977" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="530" y="560" />
+            </Array>
+            <mxPoint x="370" y="1000" as="sourcePoint" />
+            <mxPoint x="530" y="1000" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-121" parent="1" style="swimlane;whiteSpace=wrap;html=1;startSize=23;fillColor=#ffcd28;strokeColor=#d79b00;gradientColor=#ffa500;" value="ToDo Service" vertex="1">
+          <mxGeometry height="400" width="450" x="840" y="1030" as="geometry" />
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-122" edge="1" parent="ZmdDTeSiSpoZHxxOunR0-121" source="ZmdDTeSiSpoZHxxOunR0-127" style="endArrow=classic;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="ZmdDTeSiSpoZHxxOunR0-128" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-123" edge="1" parent="ZmdDTeSiSpoZHxxOunR0-121" source="ZmdDTeSiSpoZHxxOunR0-128" style="endArrow=classic;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="ZmdDTeSiSpoZHxxOunR0-129" value="Query">
+          <mxGeometry height="50" relative="1" width="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-124" parent="ZmdDTeSiSpoZHxxOunR0-121" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;gradientColor=#ffd966;" value="gRPC Client Loader&#xa;(@grpc/proto-loader)" vertex="1">
+          <mxGeometry height="60" width="160" x="40" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-125" parent="ZmdDTeSiSpoZHxxOunR0-121" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;gradientColor=#ea6b66;" value="Client Stub&lt;br&gt;UserService.GetUser()" vertex="1">
+          <mxGeometry height="50" width="160" x="40" y="175" as="geometry" />
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-126" edge="1" parent="ZmdDTeSiSpoZHxxOunR0-121" source="ZmdDTeSiSpoZHxxOunR0-124" style="endArrow=classic;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="ZmdDTeSiSpoZHxxOunR0-125" value="Load Proto">
+          <mxGeometry height="50" relative="1" width="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-127" parent="ZmdDTeSiSpoZHxxOunR0-121" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;gradientColor=#ffd966;" value="gRPC Server&lt;br&gt;(0.0.0.0:50054)" vertex="1">
+          <mxGeometry height="60" width="160" x="250" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-128" parent="ZmdDTeSiSpoZHxxOunR0-121" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;gradientColor=#ea6b66;" value="Service Implementation&#xa;(Controller Logic)" vertex="1">
+          <mxGeometry height="50" width="160" x="250" y="175" as="geometry" />
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-129" parent="ZmdDTeSiSpoZHxxOunR0-121" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#dae8fc;strokeColor=#6c8ebf;gradientColor=#7ea6e0;" value="Database&lt;br&gt;(MongoDB)" vertex="1">
+          <mxGeometry height="90" width="80" x="290" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-130" edge="1" parent="1" source="ZmdDTeSiSpoZHxxOunR0-125" style="endArrow=classic;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;fillColor=#1ba1e2;strokeColor=#006EAF;strokeWidth=3;entryX=0;entryY=1;entryDx=0;entryDy=0;" target="ZmdDTeSiSpoZHxxOunR0-109" value="&lt;font style=&quot;font-size: 12px;&quot;&gt;HTTP/2 Connection&amp;nbsp;&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;(binary transport)&lt;/font&gt;&lt;/div&gt;">
+          <mxGeometry height="50" relative="1" width="50" x="-0.2544" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="560" y="1050" />
+            </Array>
+            <mxPoint x="620" y="995" as="sourcePoint" />
+            <mxPoint x="770" y="773" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-131" edge="1" parent="1" source="ZmdDTeSiSpoZHxxOunR0-109" style="endArrow=classic;html=1;exitX=0;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;fillColor=#1ba1e2;strokeColor=#006EAF;strokeWidth=3;dashed=1;" target="ZmdDTeSiSpoZHxxOunR0-125" value="Serialized&lt;div&gt;Response&lt;/div&gt;">
+          <mxGeometry height="50" relative="1" width="50" x="0.3682" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="690" y="1040" />
+            </Array>
+            <mxPoint x="1020" y="910" as="sourcePoint" />
+            <mxPoint x="590" y="1153" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-132" parent="1" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#f5f5f5;strokeColor=#666666;gradientColor=#b3b3b3;" value="todo.proto&lt;br&gt;(Shared Definition)" vertex="1">
+          <mxGeometry height="80" width="130" x="570" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-133" edge="1" parent="1" source="ZmdDTeSiSpoZHxxOunR0-132" style="rounded=1;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.25;entryY=0;entryDx=0;entryDy=0;dashed=1;strokeColor=#005700;curved=0;endArrow=none;endFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;fillColor=#008a00;" target="ZmdDTeSiSpoZHxxOunR0-127">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="920" y="910" />
+            </Array>
+            <mxPoint x="920" y="540" as="sourcePoint" />
+            <mxPoint x="1565" y="800" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-151" connectable="0" parent="ZmdDTeSiSpoZHxxOunR0-133" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Skeleton" vertex="1">
+          <mxGeometry relative="1" x="-0.68" y="1" as="geometry">
+            <mxPoint x="-1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-134" edge="1" parent="1" source="ZmdDTeSiSpoZHxxOunR0-132" style="rounded=1;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0;entryDx=0;entryDy=0;dashed=1;strokeColor=#6F0000;curved=0;endArrow=none;endFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;fillColor=#a20025;" target="ZmdDTeSiSpoZHxxOunR0-114">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+            <mxPoint x="950" y="480" as="sourcePoint" />
+            <mxPoint x="1510" y="710" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-149" connectable="0" parent="ZmdDTeSiSpoZHxxOunR0-134" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Stub" vertex="1">
+          <mxGeometry relative="1" x="-0.4672" as="geometry">
+            <mxPoint y="-1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-135" edge="1" parent="1" source="ZmdDTeSiSpoZHxxOunR0-115" style="endArrow=classic;html=1;entryX=0.75;entryY=0;entryDx=0;entryDy=0;fillColor=#1ba1e2;strokeColor=#006EAF;strokeWidth=3;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="ZmdDTeSiSpoZHxxOunR0-127" value="&lt;font style=&quot;font-size: 12px;&quot;&gt;HTTP/2 Connection&amp;nbsp;&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;(binary transport)&lt;/font&gt;&lt;/div&gt;">
+          <mxGeometry height="50" relative="1" width="50" x="0.2503" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="1250" y="910" />
+            </Array>
+            <mxPoint x="1130" y="890" as="sourcePoint" />
+            <mxPoint x="1090" y="650" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-136" edge="1" parent="1" source="ZmdDTeSiSpoZHxxOunR0-127" style="endArrow=classic;html=1;exitX=0.75;exitY=0;exitDx=0;exitDy=0;fillColor=#1ba1e2;strokeColor=#006EAF;strokeWidth=3;dashed=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="ZmdDTeSiSpoZHxxOunR0-115" value="Serialized&amp;nbsp;&lt;div&gt;Response&lt;/div&gt;">
+          <mxGeometry height="50" relative="1" width="50" x="-0.1791" y="-1" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="1100" y="900" />
+            </Array>
+            <mxPoint x="1060" y="1080" as="sourcePoint" />
+            <mxPoint x="1020" y="890" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-137" edge="1" parent="1" source="ZmdDTeSiSpoZHxxOunR0-127" style="endArrow=classic;html=1;exitX=0;exitY=0;exitDx=0;exitDy=0;entryX=0.992;entryY=0.851;entryDx=0;entryDy=0;fillColor=#1ba1e2;strokeColor=#006EAF;strokeWidth=3;dashed=1;entryPerimeter=0;" target="ZmdDTeSiSpoZHxxOunR0-101" value="Serialized&lt;div&gt;Response&lt;/div&gt;">
+          <mxGeometry height="50" relative="1" width="50" x="0.5732" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="390" y="890" />
+            </Array>
+            <mxPoint x="890" y="1000" as="sourcePoint" />
+            <mxPoint x="420" y="1323" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-138" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" value="gRPC&amp;nbsp;&lt;div&gt;Channel&lt;div&gt;(TCP)&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="30" width="120" x="350" y="830" as="geometry" />
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-139" edge="1" parent="1" source="ZmdDTeSiSpoZHxxOunR0-132" style="rounded=1;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;dashed=1;strokeColor=#6F0000;curved=0;endArrow=none;endFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;fillColor=#a20025;" target="ZmdDTeSiSpoZHxxOunR0-100">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+            <mxPoint x="360" y="670" as="sourcePoint" />
+            <mxPoint x="715" y="1450" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-147" connectable="0" parent="ZmdDTeSiSpoZHxxOunR0-139" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Stub" vertex="1">
+          <mxGeometry relative="1" x="-0.0611" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-140" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" value="gRPC&amp;nbsp;&lt;div&gt;Channel&lt;div&gt;(TCP)&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="30" width="90" x="600" y="990" as="geometry" />
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-141" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" value="gRPC Channel (TCP)" vertex="1">
+          <mxGeometry height="50" width="80" x="1130" y="860" as="geometry" />
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-142" edge="1" parent="1" source="ZmdDTeSiSpoZHxxOunR0-141" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="ZmdDTeSiSpoZHxxOunR0-141">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-143" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=#666666;fillColor=#f5f5f5;align=center;verticalAlign=middle;rounded=0;dashed=1;gradientColor=#b3b3b3;" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;&lt;b&gt;gRPC Workflow&lt;/b&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="30" width="1200" x="80" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-144" edge="1" parent="1" style="endArrow=classic;html=1;fillColor=#1ba1e2;strokeColor=#006EAF;strokeWidth=3;" value="&lt;font style=&quot;font-size: 13px;&quot;&gt;HTTP/2&amp;nbsp;&lt;span style=&quot;background-color: light-dark(#ffffff, var(--ge-dark-color, #121212)); color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;Connection&lt;/span&gt;&lt;/font&gt;&lt;div&gt;&lt;span style=&quot;background-color: light-dark(#ffffff, var(--ge-dark-color, #121212)); color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&lt;font style=&quot;font-size: 13px;&quot;&gt;(transfer binary data)&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;">
+          <mxGeometry height="50" relative="1" width="50" x="-0.1477" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points" />
+            <mxPoint x="990" y="100" as="sourcePoint" />
+            <mxPoint x="1240" y="100" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-145" edge="1" parent="1" style="endArrow=classic;html=1;fillColor=#1ba1e2;strokeColor=#006EAF;strokeWidth=3;dashed=1;" value="&lt;font style=&quot;font-size: 13px;&quot;&gt;&lt;font style=&quot;&quot;&gt;Serialized&amp;nbsp;&lt;/font&gt;&lt;span style=&quot;background-color: light-dark(#ffffff, var(--ge-dark-color, #121212)); color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;Response&lt;/span&gt;&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 13px;&quot;&gt;(&lt;span style=&quot;background-color: light-dark(#ffffff, var(--ge-dark-color, #121212)); color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;Binary Serialization&lt;/span&gt;&lt;span style=&quot;background-color: light-dark(#ffffff, var(--ge-dark-color, #121212)); color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;)&lt;/span&gt;&lt;/font&gt;&lt;/div&gt;">
+          <mxGeometry height="50" relative="1" width="50" x="0.0667" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="980" y="150" />
+              <mxPoint x="1020" y="150" />
+            </Array>
+            <mxPoint x="1020" y="150" as="sourcePoint" />
+            <mxPoint x="1240" y="150" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-153" edge="1" parent="1" style="rounded=1;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=default;curved=0;endArrow=none;endFill=0;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+            <mxPoint x="990" y="199.38" as="sourcePoint" />
+            <mxPoint x="1240" y="199.38" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-154" connectable="0" parent="ZmdDTeSiSpoZHxxOunR0-153" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="&lt;font style=&quot;font-size: 13px;&quot;&gt;Service Contract&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 13px;&quot;&gt;(Bridge)&lt;/font&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry relative="1" x="-0.4672" as="geometry">
+            <mxPoint x="34" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZmdDTeSiSpoZHxxOunR0-155" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;br&gt;&lt;div&gt;&lt;div style=&quot;font-size: 11px; text-wrap-mode: nowrap;&quot;&gt;&lt;font style=&quot;font-size: 13px;&quot;&gt;(Connection of .proto with client called &quot;Stub&quot;&amp;nbsp;&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 11px; text-wrap-mode: nowrap;&quot;&gt;&lt;font style=&quot;font-size: 13px;&quot;&gt;and&amp;nbsp;&lt;/font&gt;&lt;font style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); font-size: 13px;&quot;&gt;connection&amp;nbsp;&lt;/font&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); font-size: 13px;&quot;&gt;with server called &quot;Skeleton&quot;)&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="30" width="110" x="1060" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="--_q2EKZt4BWAiHIwh97-1" parent="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;rounded=0;fontSize=16;fontStyle=1" value="&lt;span style=&quot;font-weight: normal;&quot;&gt;Designed by&lt;/span&gt; Devendra Kumar" vertex="1">
+          <mxGeometry height="30" width="260" x="515" y="1480" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

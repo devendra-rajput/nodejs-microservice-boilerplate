@@ -1,0 +1,227 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" version="29.3.8">
+  <diagram id="full-architecture" name="Full Microservices Architecture">
+    <mxGraphModel dx="1226" dy="685" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="docker_net" parent="1" style="swimlane;whiteSpace=wrap;html=1;startSize=23;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;dashed=1;" value="Docker Network (bridge)" vertex="1">
+          <mxGeometry height="710" width="1320" x="10" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="aws" parent="docker_net" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;gradientColor=#7ea6e0;" value="AWS S3&lt;br&gt;(External Storage)" vertex="1">
+          <mxGeometry height="80" width="160" x="1100" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="nginx" parent="docker_net" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e6d0de;strokeColor=#996185;fontStyle=1;gradientColor=#d5739d;" value="Nginx Reverse Proxy&lt;br&gt;(container: nginx)&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Ports: 80, 443&lt;/span&gt;&lt;br style=&quot;font-weight: 400;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;SSL Termination&lt;/span&gt;&lt;br style=&quot;font-weight: 400;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Load Balancing&lt;/span&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="160" width="160" x="190" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="gateway" parent="docker_net" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;gradientColor=#7ea6e0;" value="API Gateway&lt;br&gt;(container: gateway)&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Port: 8000&lt;/span&gt;&lt;br style=&quot;font-weight: 400;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Auth (JWT)&lt;/span&gt;&lt;br style=&quot;font-weight: 400;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Rate Limiting&lt;/span&gt;&lt;br style=&quot;font-weight: 400;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Request Validation&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Cors Configuration&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Response Compressor&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Error Logging&lt;/span&gt;&lt;br style=&quot;font-weight: 400;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;gRPC Client&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Redis Pub/Sub&lt;/span&gt;&lt;br style=&quot;font-weight: 400;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Socket.IO Master&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="240" width="200" x="510" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="redis" parent="docker_net" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#f8cecc;strokeColor=#b85450;gradientColor=#ea6b66;" value="Redis&#xa;(Port: 6379)" vertex="1">
+          <mxGeometry height="80" width="60" x="630" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="user_service" parent="docker_net" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;gradientColor=#97d077;" value="User Service&lt;br&gt;(container: user-service)&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Port: 50051 (HTTP), 50053 (gRPC)&lt;/span&gt;&lt;br style=&quot;font-weight: 400;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;User Mgmt&lt;/span&gt;&lt;br style=&quot;font-weight: 400;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Auth Logic&lt;/span&gt;&lt;br style=&quot;font-weight: 400;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;File Uploads&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="160" width="200" x="920" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="conn_u_aws" edge="1" parent="docker_net" source="user_service" style="endArrow=classic;html=1;exitX=0.75;exitY=0;exitDx=0;exitDy=0;entryX=0.31;entryY=0.8;entryDx=0;entryDy=0;dashed=1;entryPerimeter=0;" target="aws" value="Presigned URL Gen">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1149.6" y="104" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="mysql" parent="docker_net" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#f5f5f5;strokeColor=#666666;gradientColor=#b3b3b3;" value="MySQL&#xa;(Port: 3306)" vertex="1">
+          <mxGeometry height="80" width="60" x="1220" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="todo_service" parent="docker_net" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;gradientColor=#ffd966;" value="ToDo Service&lt;br&gt;(container: todo-service)&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Port: 50052 (HTTP), 50054 (gRPC)&lt;/span&gt;&lt;br style=&quot;font-weight: 400;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Todo CRUD&lt;/span&gt;&lt;br style=&quot;font-weight: 400;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Task Management&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="160" width="200" x="920" y="480" as="geometry" />
+        </mxCell>
+        <mxCell id="mongo" parent="docker_net" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#f5f5f5;strokeColor=#666666;gradientColor=#b3b3b3;" value="MongoDB&#xa;(Port: 27017)" vertex="1">
+          <mxGeometry height="80" width="60" x="1220" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="client" parent="docker_net" style="shape=actor;whiteSpace=wrap;html=1;" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;Client&lt;br&gt;(Browser / Mobile)" vertex="1">
+          <mxGeometry height="100" width="70" x="20" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="conn_c_n" edge="1" parent="docker_net" source="client" style="endArrow=classic;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=2;" target="nginx" value="HTTPS&lt;div&gt;&lt;span style=&quot;background-color: light-dark(#ffffff, var(--ge-dark-color, #121212)); color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;(443)&lt;/span&gt;&lt;/div&gt;">
+          <mxGeometry height="50" relative="1" width="50" as="geometry" />
+        </mxCell>
+        <mxCell id="4bAYbSxv8fR51CY5IXbi-2" edge="1" parent="docker_net" source="gateway" style="endArrow=classic;startArrow=classic;html=1;rounded=0;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;fillColor=#d5e8d4;strokeColor=#82b366;startSize=6;strokeWidth=2;" target="user_service" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="750" y="350" as="sourcePoint" />
+            <mxPoint x="800" y="300" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4bAYbSxv8fR51CY5IXbi-3" connectable="0" parent="4bAYbSxv8fR51CY5IXbi-2" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="gRPC" vertex="1">
+          <mxGeometry relative="1" x="0.0458" y="2" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4bAYbSxv8fR51CY5IXbi-4" edge="1" parent="docker_net" source="todo_service" style="endArrow=classic;startArrow=classic;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.75;entryDx=0;entryDy=0;fillColor=#d5e8d4;strokeColor=#82b366;startSize=6;strokeWidth=2;" target="gateway" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="740" y="460" as="sourcePoint" />
+            <mxPoint x="950" y="360" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4bAYbSxv8fR51CY5IXbi-5" connectable="0" parent="4bAYbSxv8fR51CY5IXbi-4" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="gRPC" vertex="1">
+          <mxGeometry relative="1" x="0.0458" y="2" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4bAYbSxv8fR51CY5IXbi-8" edge="1" parent="docker_net" source="gateway" style="endArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.03;entryY=0.956;entryDx=0;entryDy=0;entryPerimeter=0;strokeWidth=2;" target="user_service" value="HTTP Proxy&lt;br&gt;http://user-service:5051">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="760" y="380" as="sourcePoint" />
+            <mxPoint x="920" y="380" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4bAYbSxv8fR51CY5IXbi-27" edge="1" parent="docker_net" source="gateway" style="endArrow=classic;html=1;entryX=0;entryY=0.25;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;strokeWidth=2;" target="todo_service" value="HTTP Proxy&lt;br&gt;http://todo-service:5052">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="700" y="440" as="sourcePoint" />
+            <mxPoint x="1087" y="260" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4bAYbSxv8fR51CY5IXbi-28" edge="1" parent="docker_net" source="mongo" style="endArrow=classic;html=1;rounded=0;exitX=0;exitY=1;exitDx=0;exitDy=-15;exitPerimeter=0;fillColor=#6a00ff;strokeColor=#3700CC;strokeWidth=2;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1140" y="640" as="sourcePoint" />
+            <mxPoint x="1120" y="587" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4bAYbSxv8fR51CY5IXbi-29" connectable="0" parent="4bAYbSxv8fR51CY5IXbi-28" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Data" vertex="1">
+          <mxGeometry relative="1" x="0.0698" y="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4bAYbSxv8fR51CY5IXbi-30" edge="1" parent="docker_net" source="todo_service" style="endArrow=classic;html=1;rounded=0;exitX=0;exitY=0.75;exitDx=0;exitDy=0;fillColor=#6a00ff;strokeColor=#3700CC;strokeWidth=2;entryX=0.96;entryY=0.944;entryDx=0;entryDy=0;entryPerimeter=0;" target="gateway" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="874" y="590" as="sourcePoint" />
+            <mxPoint x="770" y="592" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4bAYbSxv8fR51CY5IXbi-36" connectable="0" parent="4bAYbSxv8fR51CY5IXbi-30" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Response" vertex="1">
+          <mxGeometry relative="1" x="0.0697" y="-2" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4bAYbSxv8fR51CY5IXbi-37" edge="1" parent="docker_net" source="gateway" style="endArrow=classic;html=1;rounded=0;exitX=0;exitY=0.75;exitDx=0;exitDy=0;fillColor=#6a00ff;strokeColor=#3700CC;strokeWidth=2;entryX=1;entryY=0.75;entryDx=0;entryDy=0;" target="nginx" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="568" y="523" as="sourcePoint" />
+            <mxPoint x="350" y="470" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4bAYbSxv8fR51CY5IXbi-38" connectable="0" parent="4bAYbSxv8fR51CY5IXbi-37" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Response" vertex="1">
+          <mxGeometry relative="1" x="0.0697" y="-2" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4bAYbSxv8fR51CY5IXbi-39" edge="1" parent="docker_net" source="nginx" style="endArrow=classic;html=1;rounded=0;fillColor=#6a00ff;strokeColor=#3700CC;strokeWidth=2;entryX=1;entryY=0.75;entryDx=0;entryDy=0;exitX=0;exitY=0.656;exitDx=0;exitDy=0;exitPerimeter=0;" target="client" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="188" y="470" as="sourcePoint" />
+            <mxPoint x="40" y="460" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4bAYbSxv8fR51CY5IXbi-40" connectable="0" parent="4bAYbSxv8fR51CY5IXbi-39" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Response" vertex="1">
+          <mxGeometry relative="1" x="0.0697" y="-2" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4bAYbSxv8fR51CY5IXbi-41" edge="1" parent="docker_net" style="endArrow=classic;html=1;rounded=0;fillColor=#6a00ff;strokeColor=#3700CC;strokeWidth=2;entryX=0.982;entryY=0.666;entryDx=0;entryDy=0;entryPerimeter=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1220" y="260" as="sourcePoint" />
+            <mxPoint x="1120" y="262" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4bAYbSxv8fR51CY5IXbi-42" connectable="0" parent="4bAYbSxv8fR51CY5IXbi-41" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Data" vertex="1">
+          <mxGeometry relative="1" x="0.0698" y="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4bAYbSxv8fR51CY5IXbi-43" edge="1" parent="docker_net" source="user_service" style="endArrow=classic;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;fillColor=#6a00ff;strokeColor=#3700CC;strokeWidth=2;entryX=0.948;entryY=0.028;entryDx=0;entryDy=0;entryPerimeter=0;" target="gateway" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="928" y="453" as="sourcePoint" />
+            <mxPoint x="710" y="400" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4bAYbSxv8fR51CY5IXbi-44" connectable="0" parent="4bAYbSxv8fR51CY5IXbi-43" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Response" vertex="1">
+          <mxGeometry relative="1" x="0.0697" y="-2" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4bAYbSxv8fR51CY5IXbi-75" edge="1" parent="docker_net" source="gateway" style="endArrow=classic;html=1;rounded=0;exitX=0;exitY=0.25;exitDx=0;exitDy=0;fillColor=#6a00ff;strokeColor=#3700CC;strokeWidth=2;entryX=1;entryY=0.75;entryDx=0;entryDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="510" y="425" as="sourcePoint" />
+            <mxPoint x="350" y="405" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4bAYbSxv8fR51CY5IXbi-76" connectable="0" parent="4bAYbSxv8fR51CY5IXbi-75" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Response" vertex="1">
+          <mxGeometry relative="1" x="0.0697" y="-2" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4bAYbSxv8fR51CY5IXbi-77" edge="1" parent="docker_net" style="endArrow=classic;html=1;strokeWidth=2;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="20" y="90" as="sourcePoint" />
+            <mxPoint x="160" y="90" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4bAYbSxv8fR51CY5IXbi-78" connectable="0" parent="4bAYbSxv8fR51CY5IXbi-77" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="&lt;font style=&quot;font-size: 12px;&quot;&gt;Requests&lt;/font&gt;" vertex="1">
+          <mxGeometry relative="1" x="-0.1" y="2" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4bAYbSxv8fR51CY5IXbi-79" edge="1" parent="docker_net" style="endArrow=classic;html=1;rounded=0;fillColor=#6a00ff;strokeColor=#3700CC;strokeWidth=2;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="20" y="130" as="sourcePoint" />
+            <mxPoint x="160" y="130" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4bAYbSxv8fR51CY5IXbi-80" connectable="0" parent="4bAYbSxv8fR51CY5IXbi-79" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="&lt;font style=&quot;font-size: 12px;&quot;&gt;Response&lt;/font&gt;" vertex="1">
+          <mxGeometry relative="1" x="0.0697" y="-2" as="geometry">
+            <mxPoint x="-4" y="-2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4bAYbSxv8fR51CY5IXbi-85" edge="1" parent="docker_net" style="endArrow=classic;html=1;dashed=1;" value="&lt;font style=&quot;font-size: 12px;&quot;&gt;Service Provider&lt;/font&gt;">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="20" y="170" as="sourcePoint" />
+            <mxPoint x="160" y="170" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn_n_g" edge="1" parent="docker_net" source="nginx" style="endArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=2;" target="gateway" value="HTTP Proxy&#xa;http://gateway:8000">
+          <mxGeometry height="50" relative="1" width="50" as="geometry" />
+        </mxCell>
+        <mxCell id="conn_u_mysql" edge="1" parent="docker_net" source="user_service" style="endArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=2;" target="mysql" value="Sequelize">
+          <mxGeometry height="50" relative="1" width="50" as="geometry" />
+        </mxCell>
+        <mxCell id="conn_t_mongo" edge="1" parent="docker_net" source="todo_service" style="endArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=2;" target="mongo" value="Mongoose">
+          <mxGeometry height="50" relative="1" width="50" as="geometry" />
+        </mxCell>
+        <mxCell id="conn_u_redis" edge="1" parent="docker_net" source="user_service" style="endArrow=classic;html=1;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;dashed=1;" target="redis" value="Pub / Cache">
+          <mxGeometry height="50" relative="1" width="50" as="geometry" />
+        </mxCell>
+        <mxCell id="conn_g_redis" edge="1" parent="docker_net" source="gateway" style="endArrow=classic;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;dashed=1;" target="redis" value="Sub / Cache">
+          <mxGeometry height="50" relative="1" width="50" as="geometry" />
+        </mxCell>
+        <mxCell id="4bAYbSxv8fR51CY5IXbi-86" edge="1" parent="docker_net" style="endArrow=classic;startArrow=classic;html=1;rounded=0;fillColor=#d5e8d4;strokeColor=#82b366;startSize=6;strokeWidth=2;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="20" y="210" as="sourcePoint" />
+            <mxPoint x="160" y="210" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4bAYbSxv8fR51CY5IXbi-87" connectable="0" parent="4bAYbSxv8fR51CY5IXbi-86" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" value="Internal&amp;nbsp;&lt;div&gt;Communication&lt;/div&gt;" vertex="1">
+          <mxGeometry relative="1" x="0.0458" y="2" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="0xS-ltLwbCXBjMPENhif-1" parent="docker_net" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;rounded=0;fontSize=16;fontStyle=1" value="&lt;span style=&quot;font-weight: normal;&quot;&gt;Designed by&lt;/span&gt; Devendra Kumar" vertex="1">
+          <mxGeometry height="30" width="260" x="1030" y="670" as="geometry" />
+        </mxCell>
+        <mxCell id="HbyfQSpPzpud0grCfq_d-1" edge="1" parent="docker_net" source="todo_service" style="endArrow=classic;startArrow=classic;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;fillColor=#d5e8d4;strokeColor=#82b366;startSize=6;strokeWidth=2;" target="user_service" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="870" y="410" as="sourcePoint" />
+            <mxPoint x="1080" y="310" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HbyfQSpPzpud0grCfq_d-2" connectable="0" parent="HbyfQSpPzpud0grCfq_d-1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="gRPC" vertex="1">
+          <mxGeometry relative="1" x="0.0458" y="2" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
